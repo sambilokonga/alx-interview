@@ -1,21 +1,25 @@
 #!/usr/bin/python3
-"""Script will unlock list of lists"""
+"""Lockboxes Contains method that finds the keys to
+open other lockboxes
+"""
+
 
 def canUnlockAll(boxes):
-    num_boxes = len(boxes)
-    unlocked_boxes = [False] * num_boxes
-    unlocked_boxes[0] = True  # First box is unlocked
+    """
+    Function that determines if you can open all the lockboxes
+    Args:
+        boxes: list of lists of integers
+    Returns:
+        True if you can open all the lockboxes, False otherwise
+    """
+    unlocked = set()
 
-    # Use a stack to keep track of boxes to visit
-    stack = [0]
-
-    while stack:
-        current_box = stack.pop()
-        keys = boxes[current_box]
-
-        for key in keys:
-            if key < num_boxes and not unlocked_boxes[key]:
-                unlocked_boxes[key] = True
-                stack.append(key)
-
-    return all(unlocked_boxes)
+    for box_id, box in enumerate(boxes):
+        if len(box) == 0 or box_id == 0:
+            unlocked.add(box_id)
+        for key in box:
+            if key < len(boxes) and key != box_id:
+                unlocked.add(key)
+        if len(unlocked) == len(boxes):
+            return True
+    return False
