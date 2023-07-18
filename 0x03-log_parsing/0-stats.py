@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 """
 This module contains the function that displays the
 stats from the standard input
